@@ -1,0 +1,29 @@
+create database shoppingCar;
+
+CREATE TABLE `cart` (
+  `cart_number` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '購物車編號',
+  `customer` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客戶名稱',
+  `amount` int NOT NULL COMMENT '金額',
+  `created_by` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_date` datetime NOT NULL,
+  `last_modified_by` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_modified_date` datetime NOT NULL,
+  PRIMARY KEY (`cart_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='購物車資料'
+
+CREATE TABLE `commodity_pool_main` (
+  `COMMODITY_POOL_ID` varchar(20) NOT NULL,
+  `COMMODITY_POOL_NAME` varchar(50) NOT NULL COMMENT '商品池名稱',
+  `COMMODITY_POOL_TYPE` varchar(2) NOT NULL COMMENT '商品池類別',
+  `STOP_CHECK` varchar(1) NOT NULL COMMENT '是否停用',
+  `STOP_DESC` varchar(100) DEFAULT NULL COMMENT '停用原因',
+  `LOG_ID` varchar(10) NOT NULL COMMENT 'LOG序號',
+  PRIMARY KEY (`COMMODITY_POOL_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品池維護主檔'
+
+CREATE TABLE `commodity_pool_detail` (
+  `COMMODITY_POOL_ID` varchar(20) NOT NULL COMMENT '商品池代號',
+  `COMMODITY_ID` varchar(20) NOT NULL,
+  `LOG_ID` varchar(10) NOT NULL COMMENT 'LOG序號',
+  PRIMARY KEY (`COMMODITY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品池維護明細檔'
