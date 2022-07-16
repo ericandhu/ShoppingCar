@@ -17,4 +17,11 @@ public class ShoppingCarServiceImpl {
 		return ShoppingCarRepository.getCart();
 	}
 
+	public Cart getCart_By_Number(String cart_number) throws Exception {
+		return ShoppingCarRepository.getCart_By_Number(cart_number);
+	}
+
+	public List<Cart> getCart_By_Number_List(List cart_number_list) throws Exception {
+		return ShoppingCarRepository.getCart_By_Number_List(cart_number_list);
+	}
 }
