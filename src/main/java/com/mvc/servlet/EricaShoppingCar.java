@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.parser.Entity;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -23,10 +22,6 @@ import com.mvc.service.impl.ShoppingCarServiceImpl;
 public class EricaShoppingCar extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
-	public EricaShoppingCar() {
-		super();
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -43,7 +38,6 @@ public class EricaShoppingCar extends HttpServlet {
 			while ((inputStr = streamReader.readLine()) != null) {
 				// 有幾行讀幾次，把所有加入requestStrBuilder裡
 				requestStrBuilder.append(inputStr);
-
 			}
 
 			ShoppingCarServiceImpl shoppingCarServiceImpl = new ShoppingCarServiceImpl();
@@ -65,7 +59,6 @@ public class EricaShoppingCar extends HttpServlet {
 							cartList.get(i).getCustomer(), cartList.get(i).getAmount(), cartList.get(i).getCreated_by(),
 							cartList.get(i).getCreated_date(), cartList.get(i).getLast_modified_by(),
 							cartList.get(i).getLast_modified_date());
-
 					array.add(jsonObject);
 				}
 				// 查詢結束後轉成json回傳前端
@@ -75,9 +68,8 @@ public class EricaShoppingCar extends HttpServlet {
 			else if (inputKey.equals("2")) {
 				String cart_Number = parseObject.get("cart_number").toString();
 				Cart cart = shoppingCarServiceImpl.getCart_By_Number(cart_Number);
-				JSONObject jsonObject = getJsonObject(cart.getCart_number(),
-						cart.getCustomer(), cart.getAmount(), cart.getCreated_by(),
-						cart.getCreated_date(), cart.getLast_modified_by(),
+				JSONObject jsonObject = getJsonObject(cart.getCart_number(), cart.getCustomer(), cart.getAmount(),
+						cart.getCreated_by(), cart.getCreated_date(), cart.getLast_modified_by(),
 						cart.getLast_modified_date());
 				array.add(jsonObject);
 				response.getWriter().append(array.toString());
@@ -117,31 +109,52 @@ public class EricaShoppingCar extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String param = null;
-
 		try {
+			// 取得 request的資料
 			BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
-			StringBuilder responseStrBuilder = new StringBuilder();
+			response.setCharacterEncoding("UTF-8");
+			// 在這邊是用來 接收request傳進來的字串
+			StringBuilder requestStrBuilder = new StringBuilder();
 			String inputStr;
+			// 預設為1
+			String inputKey = "1";
 			while ((inputStr = streamReader.readLine()) != null) {
-				responseStrBuilder.append(inputStr);
+				// 有幾行讀幾次，把所有加入requestStrBuilder裡
+				requestStrBuilder.append(inputStr);
 			}
-			JSONObject jsonObject = JSONObject.parseObject(responseStrBuilder.toString());
-			param = jsonObject.toJSONString();
-			System.out.println(param);
+
+			ShoppingCarServiceImpl shoppingCarServiceImpl = new ShoppingCarServiceImpl();
+			// 用於 request的json檔案轉換成 java物件
+			JSONObject parseObject = JSONObject.parseObject(requestStrBuilder.toString());
+			if (parseObject != null) {
+				// 取得json裡面的某個物件
+				inputKey = parseObject.get("inputKey").toString();
+			}
+
+			// 接受底下回傳資料的array
+			JSONArray array = new JSONArray();
+
+			// 假如 inputKey為1 新增單筆資料
+			if (inputKey.equals("1")) {
+				List<Cart> cartList = shoppingCarServiceImpl.getCart();
+				for (int i = 0; i < cartList.size(); i++) {
+					JSONObject jsonObject = getJsonObject(cartList.get(i).getCart_number(),
+							cartList.get(i).getCustomer(), cartList.get(i).getAmount(), cartList.get(i).getCreated_by(),
+							cartList.get(i).getCreated_date(), cartList.get(i).getLast_modified_by(),
+							cartList.get(i).getLast_modified_date());
+					array.add(jsonObject);
+				}
+				// 查詢結束後轉成json回傳前端
+				response.getWriter().append(array.toString());
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
-		response.getWriter().append("{\"id\":\"1\", \"name\": \"erica\"}");
-		// response.getWriter().append("Served
-		// at:doGet").append(request.getContextPath());
-		// doGet(request, response);
 	}
 
 	public JSONObject getJsonObject(String cart_number, String customer, int amount, String created_by,
 			Date created_date, String last_modified_by, Date last_modified_date) {
 		JSONObject jsonObject = new JSONObject();
-
 		jsonObject.put("ID", customer);
 		jsonObject.put("金額", amount);
 		jsonObject.put("購物車單號", cart_number);

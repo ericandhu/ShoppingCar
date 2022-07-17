@@ -23,4 +23,15 @@
 		<servlet-name>EricaShoppingCar</servlet-name>
 		<url-pattern>/index</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<description></description>
+		<display-name>InsertShoppingCar</display-name>
+		<servlet-name>InsertShoppingCar</servlet-name>
+		<servlet-class>com.mvc.servlet.InsertShoppingCar</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertShoppingCar</servlet-name>
+		<url-pattern>/insert</url-pattern>
+	</servlet-mapping>
 </web-app>
