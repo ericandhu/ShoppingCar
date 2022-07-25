@@ -1,9 +1,6 @@
 package com.mvc.servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,32 +23,19 @@ public class EricaShoppingCar extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			// ¨ú±o requestªº¸ê®Æ
-			BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
+			String inputKey = request.getParameter("inputKey");
 			response.setCharacterEncoding("UTF-8");
-			// ¦b³oÃä¬O¥Î¨Ó ±µ¦¬request¶Ç¶i¨Óªº¦r¦ê
-			StringBuilder requestStrBuilder = new StringBuilder();
-			String inputStr;
-			// ¹w³]¬°1
-			String inputKey = "1";
 
-			while ((inputStr = streamReader.readLine()) != null) {
-				// ¦³´X¦æÅª´X¦¸¡A§â©Ò¦³¥[¤JrequestStrBuilder¸Ì
-				requestStrBuilder.append(inputStr);
+			if (inputKey == null || inputKey.equals("")) {
+				inputKey = "1";
 			}
 
 			ShoppingCarServiceImpl shoppingCarServiceImpl = new ShoppingCarServiceImpl();
-			// ¥Î©ó requestªºjsonÀÉ®×Âà´«¦¨ javaª«¥ó
-			JSONObject parseObject = JSONObject.parseObject(requestStrBuilder.toString());
-			if (parseObject != null) {
-				// ¨ú±ojson¸Ì­±ªº¬Y­Óª«¥ó
-				inputKey = parseObject.get("inputKey").toString();
-			}
 
-			// ±µ¨ü©³¤U¦^¶Ç¸ê®Æªºarray
+			// æ¥å—åº•ä¸‹å›å‚³è³‡æ–™çš„array
 			JSONArray array = new JSONArray();
 
-			// °²¦p inputKey¬°1 ¥ş³¡¬d¸ß
+			// å‡å¦‚ inputKeyç‚º1 å…¨éƒ¨æŸ¥è©¢
 			if (inputKey.equals("1")) {
 				List<Cart> cartList = shoppingCarServiceImpl.getCart();
 				for (int i = 0; i < cartList.size(); i++) {
@@ -61,94 +45,50 @@ public class EricaShoppingCar extends HttpServlet {
 							cartList.get(i).getLast_modified_date());
 					array.add(jsonObject);
 				}
-				// ¬d¸ßµ²§ô«áÂà¦¨json¦^¶Ç«eºİ
+				// æŸ¥è©¢çµæŸå¾Œè½‰æˆjsonå›å‚³å‰ç«¯
 				response.getWriter().append(array.toString());
 			}
-			// °²¦p inputKey¬°2«ü©w³æ¸¹¬d¸ß
+			// å‡å¦‚ inputKeyç‚º2æŒ‡å®šå–®è™ŸæŸ¥è©¢
 			else if (inputKey.equals("2")) {
-				String cart_Number = parseObject.get("cart_number").toString();
+				String cart_Number = request.getParameter("cart_number");
 				Cart cart = shoppingCarServiceImpl.getCart_By_Number(cart_Number);
 				JSONObject jsonObject = getJsonObject(cart.getCart_number(), cart.getCustomer(), cart.getAmount(),
 						cart.getCreated_by(), cart.getCreated_date(), cart.getLast_modified_by(),
 						cart.getLast_modified_date());
 				array.add(jsonObject);
 				response.getWriter().append(array.toString());
-
 			}
-			// °²¦p inputKey¬°3¦hµ§¬d¸ß
-			else if (inputKey.equals("3")) {
-				List<String> cart_list = new ArrayList();
-				// JSONª«¥ó¶i¤J®É¬°°}¦Cª¬»İ­nÂàÄ¶¦¨°}¦Cª¬
-				JSONArray jsonArr = parseObject.getJSONArray("cart_number_list");
-				for (int i = 0; i < jsonArr.size(); i++) {
-					// ¨úarrayª¬¤¤¦æ¼Æi
-					JSONObject jsonObject = jsonArr.getJSONObject(i);
-					// ¨ú¥X·í¦æ¤¤¡Akeyªº­ÈÂà¦¨string
-					String cart_number = jsonObject.get("cart_number").toString();
-					// «Ø¥ß¤@­Ólist¨Ó©ñ±o¨ìªº­È
-					cart_list.add(cart_number);
-				}
-				List<Cart> cartList = shoppingCarServiceImpl.getCart_By_Number_List(cart_list);
-				// for°j°é¥Î¨Ó§â¸ê®Æ­Ì¦AÂà¦¨JSONÀÉ
-				for (int i = 0; i < cartList.size(); i++) {
-					JSONObject jsonObject = getJsonObject(cartList.get(i).getCart_number(),
-							cartList.get(i).getCustomer(), cartList.get(i).getAmount(), cartList.get(i).getCreated_by(),
-							cartList.get(i).getCreated_date(), cartList.get(i).getLast_modified_by(),
-							cartList.get(i).getLast_modified_date());
+			// å‡å¦‚ inputKeyç‚º3å¤šç­†æŸ¥è©¢
+//			else if (inputKey.equals("3")) {
+//				List<String> cart_list = new ArrayList();
+//				// JSONç‰©ä»¶é€²å…¥æ™‚ç‚ºé™£åˆ—ç‹€éœ€è¦è½‰è­¯æˆé™£åˆ—ç‹€
+//				JSONArray jsonArr = parseObject.getJSONArray("cart_number_list");
+//				for (int i = 0; i < jsonArr.size(); i++) {
+//					// å–arrayç‹€ä¸­è¡Œæ•¸i
+//					JSONObject jsonObject = jsonArr.getJSONObject(i);
+//					// å–å‡ºç•¶è¡Œä¸­ï¼Œkeyçš„å€¼è½‰æˆstring
+//					String cart_number = jsonObject.get("cart_number").toString();
+//					// å»ºç«‹ä¸€å€‹listä¾†æ”¾å¾—åˆ°çš„å€¼
+//					cart_list.add(cart_number);
+//				}
+//				List<Cart> cartList = shoppingCarServiceImpl.getCart_By_Number_List(cart_list);
+//				// forè¿´åœˆç”¨ä¾†æŠŠè³‡æ–™å€‘å†è½‰æˆJSONæª”
+//				for (int i = 0; i < cartList.size(); i++) {
+//					JSONObject jsonObject = getJsonObject(cartList.get(i).getCart_number(),
+//							cartList.get(i).getCustomer(), cartList.get(i).getAmount(), cartList.get(i).getCreated_by(),
+//							cartList.get(i).getCreated_date(), cartList.get(i).getLast_modified_by(),
+//							cartList.get(i).getLast_modified_date());
+//
+//					array.add(jsonObject);
+//				}
+//				response.getWriter().append(array.toString());
 
-					array.add(jsonObject);
-				}
-				response.getWriter().append(array.toString());
+//			}
 
-			}
+		} catch (
 
-		} catch (Exception e) {
+		Exception e) {
 			response.getWriter().append("Error!");
-		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-			// ¨ú±o requestªº¸ê®Æ
-			BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
-			response.setCharacterEncoding("UTF-8");
-			// ¦b³oÃä¬O¥Î¨Ó ±µ¦¬request¶Ç¶i¨Óªº¦r¦ê
-			StringBuilder requestStrBuilder = new StringBuilder();
-			String inputStr;
-			// ¹w³]¬°1
-			String inputKey = "1";
-			while ((inputStr = streamReader.readLine()) != null) {
-				// ¦³´X¦æÅª´X¦¸¡A§â©Ò¦³¥[¤JrequestStrBuilder¸Ì
-				requestStrBuilder.append(inputStr);
-			}
-
-			ShoppingCarServiceImpl shoppingCarServiceImpl = new ShoppingCarServiceImpl();
-			// ¥Î©ó requestªºjsonÀÉ®×Âà´«¦¨ javaª«¥ó
-			JSONObject parseObject = JSONObject.parseObject(requestStrBuilder.toString());
-			if (parseObject != null) {
-				// ¨ú±ojson¸Ì­±ªº¬Y­Óª«¥ó
-				inputKey = parseObject.get("inputKey").toString();
-			}
-
-			// ±µ¨ü©³¤U¦^¶Ç¸ê®Æªºarray
-			JSONArray array = new JSONArray();
-
-			// °²¦p inputKey¬°1 ·s¼W³æµ§¸ê®Æ
-			if (inputKey.equals("1")) {
-				List<Cart> cartList = shoppingCarServiceImpl.getCart();
-				for (int i = 0; i < cartList.size(); i++) {
-					JSONObject jsonObject = getJsonObject(cartList.get(i).getCart_number(),
-							cartList.get(i).getCustomer(), cartList.get(i).getAmount(), cartList.get(i).getCreated_by(),
-							cartList.get(i).getCreated_date(), cartList.get(i).getLast_modified_by(),
-							cartList.get(i).getLast_modified_date());
-					array.add(jsonObject);
-				}
-				// ¬d¸ßµ²§ô«áÂà¦¨json¦^¶Ç«eºİ
-				response.getWriter().append(array.toString());
-			}
-		} catch (Exception e) {
-
 		}
 	}
 
@@ -156,12 +96,12 @@ public class EricaShoppingCar extends HttpServlet {
 			Date created_date, String last_modified_by, Date last_modified_date) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("ID", customer);
-		jsonObject.put("ª÷ÃB", amount);
-		jsonObject.put("ÁÊª«¨®³æ¸¹", cart_number);
-		jsonObject.put("³Ğ«ØªÌ", created_by);
-		jsonObject.put("³Ğ«Ø¤é´Á", created_date);
-		jsonObject.put("³Ì«á­×§ïªÌ", last_modified_by);
-		jsonObject.put("³Ì«á­×§ï¤é´Á", last_modified_date);
+		jsonObject.put("é‡‘é¡", amount);
+		jsonObject.put("è³¼ç‰©è»Šå–®è™Ÿ", cart_number);
+		jsonObject.put("å‰µå»ºè€…", created_by);
+		jsonObject.put("å‰µå»ºæ—¥æœŸ", created_date);
+		jsonObject.put("æœ€å¾Œä¿®æ”¹è€…", last_modified_by);
+		jsonObject.put("æœ€å¾Œä¿®æ”¹æ—¥æœŸ", last_modified_date);
 		return jsonObject;
 	}
 

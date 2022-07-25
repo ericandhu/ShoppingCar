@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://JAVA.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>ShoppingCar</display-name>
 	<welcome-file-list>
@@ -13,6 +13,7 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
+	<!-- 查詢資料 -->
 	<servlet>
 		<description></description>
 		<display-name>EricaShoppingCar</display-name>
@@ -21,9 +22,10 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EricaShoppingCar</servlet-name>
-		<url-pattern>/index</url-pattern>
+		<url-pattern>/ericaShoppingCar/index</url-pattern>
 	</servlet-mapping>
 
+	<!-- 新增資料 -->
 	<servlet>
 		<description></description>
 		<display-name>InsertShoppingCar</display-name>
@@ -32,6 +34,31 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>InsertShoppingCar</servlet-name>
-		<url-pattern>/insert</url-pattern>
+		<url-pattern>/insertShoppingCar/insert</url-pattern>
 	</servlet-mapping>
+
+	<!-- 更新資料 -->
+	<servlet>
+		<description></description>
+		<display-name>UpdateShoppingCar</display-name>
+		<servlet-name>UpdateShoppingCar</servlet-name>
+		<servlet-class>com.mvc.servlet.UpdateShoppingCar</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateShoppingCar</servlet-name>
+		<url-pattern>/updateShoppingCar/update</url-pattern>
+	</servlet-mapping>
+
+	<!-- 刪除資料 -->
+	<servlet>
+		<description></description>
+		<display-name>DeleteShoppingCar</display-name>
+		<servlet-name>DeleteShoppingCar</servlet-name>
+		<servlet-class>com.mvc.servlet.DeleteShoppingCar</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteShoppingCar</servlet-name>
+		<url-pattern>/deleteShoppingCar/delete</url-pattern>
+	</servlet-mapping>
+
 </web-app>

@@ -16,12 +16,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.mvc.dao.Cart;
 import com.mvc.service.impl.ShoppingCarServiceImpl;
 
-@WebServlet("/InsertShoppingCar")
-public class InsertShoppingCar extends HttpServlet {
+@WebServlet("/UpdateShoppingCar")
+public class UpdateShoppingCar extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public InsertShoppingCar() {
+	public UpdateShoppingCar() {
 		super();
 	}
 
@@ -55,32 +55,32 @@ public class InsertShoppingCar extends HttpServlet {
 			// 接受底下回傳資料的array
 			JSONArray array = new JSONArray();
 
-			// 假如 inputKey為1單筆新增
+			// 單筆修改
 			if (inputKey.equals("1")) {
 				Cart cartInfo = new Cart();
-				// Integer.parseInt 是用來把 字串 轉 成int型態
 				cartInfo.setAmount(Integer.parseInt(parseObject.get("amount").toString()));
 				cartInfo.setCart_number(parseObject.get("cart_number").toString());
-
-				// 這邊直接帶入系統時間 然後因為 要符合 sql date的原因 所以要google 找方法 把 util.date轉換成 sql.date
-				// sql date 跟 util date 都是一種時間格式
-				cartInfo.setCreated_date(new java.sql.Date(new Date().getTime()));
 				cartInfo.setLast_modified_date(new java.sql.Date(new Date().getTime()));
-				cartInfo.setCreated_by(parseObject.get("created_by").toString());
 				cartInfo.setLast_modified_by(parseObject.get("last_modified_by").toString());
 				cartInfo.setCustomer(parseObject.get("customer").toString());
 				// 執行新增資料
-				shoppingCarServiceImpl.insertCartInfo(cartInfo);
-
-				array.add(parseObject);
+				shoppingCarServiceImpl.updateateCartInfo(cartInfo);
 				// 查詢結束後轉成json回傳前端
-				response.getWriter().append(array.toString());
-			} else if (inputKey.equals("1")) {
+				response.getWriter().append("更新成功!");
+			}
+			// 更新多筆
+			else if (inputKey.equals("2")) {
 
 			}
 		} catch (Exception e) {
 			response.getWriter().append(e.toString());
 		}
 	}
+
+	// String pattern = "yyyy-MM-dd";
+	// // SimpleDateFormat 用來 把字串轉成 日期 建議用 2018-09-09這種格式傳入 雖然別的也可以但要寫對上面pattern
+	// SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+	// Date date =
+	// simpleDateFormat.parse(parseObject.get("last_modified_date").toString());
 
 }

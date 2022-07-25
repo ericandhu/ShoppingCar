@@ -3,14 +3,23 @@ package com.mvc.service.impl;
 import java.util.List;
 
 import com.mvc.dao.Cart;
+import com.mvc.service.repository.DeleteShoppingCarRepository;
+import com.mvc.service.repository.InsertShoppingCarRepository;
 import com.mvc.service.repository.ShoppingCarRepository;
+import com.mvc.service.repository.UpdateShoppingCarRepository;
 
 public class ShoppingCarServiceImpl {
-
+	
 	ShoppingCarRepository ShoppingCarRepository = new ShoppingCarRepository();
+	
+	InsertShoppingCarRepository insertShoppingCarRepository = new InsertShoppingCarRepository();
+	
+	UpdateShoppingCarRepository updateShoppingCarRepository = new UpdateShoppingCarRepository();
+	
+	DeleteShoppingCarRepository deleteShoppingCarRepository = new DeleteShoppingCarRepository();
 
 	/**
-	 * ¨ú±o¥ş³¡¸ê®Æ
+	 * å–å¾—å…¨éƒ¨è³‡æ–™
 	 * 
 	 * @return
 	 * @throws Exception
@@ -20,7 +29,7 @@ public class ShoppingCarServiceImpl {
 	}
 
 	/**
-	 * ¨ú±o«ü©w¸ê®Æ
+	 * å–å¾—æŒ‡å®šè³‡æ–™
 	 * 
 	 * @param cart_number
 	 * @return
@@ -31,7 +40,7 @@ public class ShoppingCarServiceImpl {
 	}
 
 	/**
-	 * ¨ú±o«ü©w¸ê®Æ_¦hµ§
+	 * å–å¾—æŒ‡å®šè³‡æ–™_å¤šç­†
 	 * 
 	 * @param cart_number_list
 	 * @return
@@ -42,12 +51,43 @@ public class ShoppingCarServiceImpl {
 	}
 
 	/**
-	 * ·s¼W¤@µ§¸ê®Æ
+	 * æ–°å¢ä¸€ç­†è³‡æ–™
 	 * 
 	 * @param cartInfo
 	 * @throws Exception
 	 */
 	public void insertCartInfo(Cart cartInfo) throws Exception {
-		ShoppingCarRepository.insertCartInfo(cartInfo);
+		insertShoppingCarRepository.insertCartInfo(cartInfo);
 	}
+	
+	/**
+	 * æ–°å¢å¤šç­†è³‡æ–™
+	 * 
+	 * @param cartInfoList
+	 * @throws Exception
+	 */
+	public void insertCartInfoList(List<Cart> cartInfoList) throws Exception {
+		insertShoppingCarRepository.insertCartInfoList(cartInfoList);
+	}
+	
+	/**
+	 * æ›´æ–°ä¸€ç­†è³‡æ–™
+	 * 
+	 * @param cartInfo
+	 * @throws Exception
+	 */
+	public void updateateCartInfo(Cart cartInfo) throws Exception {
+		updateShoppingCarRepository.updateCartInfo(cartInfo);
+	}
+	
+	/**
+	 * åˆªé™¤ä¸€ç­†è³‡æ–™
+	 * 
+	 * @param cartNumber
+	 * @throws Exception
+	 */
+	public void deleteCartInfo(String cartNumber) throws Exception {
+		deleteShoppingCarRepository.deleteCartInfo(cartNumber);
+	}
+	
 }

@@ -9,6 +9,12 @@ import java.util.List;
 
 import com.mvc.dao.Cart;
 
+/**
+ * æŸ¥è©¢é¡åˆ¥
+ * 
+ * @author User
+ *
+ */
 public class ShoppingCarRepository {
 
 	static Jdbc_mysql_config jd = new Jdbc_mysql_config();
@@ -39,25 +45,24 @@ public class ShoppingCarRepository {
 				cartList.add(cart);
 			}
 		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
 			stmt.close();
 			conn.close();
+			throw e;
 		}
 
 		return cartList;
 	}
 
 	public Cart getCart_By_Number(String cart_number) throws Exception {
-		// ·Ç³Æ°õ¦æSQLªºª«¥ó
+		// æº–å‚™åŸ·è¡ŒSQLçš„ç‰©ä»¶
 		Statement stmt = null;
-		// ³s½uªºª«¥ó
+		// é€£ç·šçš„ç‰©ä»¶
 		Connection conn = null;
 		//
 		Cart cart = new Cart();
 		try {
 			conn = jd.getConnection();
-			// ·Ç³Æ¹ïDB·F¹Àªºª«¥ó
+			// æº–å‚™å°DBå¹¹å˜›çš„ç‰©ä»¶
 			stmt = conn.createStatement();
 
 			String sql;
@@ -73,12 +78,10 @@ public class ShoppingCarRepository {
 				cart.setLast_modified_by(rs.getString("Last_modified_by"));
 				cart.setLast_modified_date(rs.getDate("Last_modified_date"));
 			}
-
 		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
 			stmt.close();
 			conn.close();
+			throw e;
 		}
 
 		return cart;
@@ -110,51 +113,11 @@ public class ShoppingCarRepository {
 				cartList.add(cart);
 			}
 		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
 			stmt.close();
 			conn.close();
+			throw e;
 		}
 		return cartList;
 	}
 
-	/**
-	 * ·s¼W¤@µ§¸ê®Æ °Ñ¦Òºô¯¸:
-	 * http://rightthewaygeek.blogspot.com/2014/02/java-jdbc-sql-database.html
-	 * 
-	 * @param cartInfo
-	 * @throws Exception
-	 */
-	public void insertCartInfo(Cart cartInfo) throws Exception {
-		Statement stmt = null;
-		Connection conn = null;
-
-		try {
-			conn = jd.getConnection();
-			stmt = conn.createStatement();
-			// ³o­Ó¼gªk¬O prepare statement ¥i¥H¬dinsertCartInfo¤W­±ªº°Ñ¦Òºô¯¸
-			// cart «á­±¥ı±µ tableªºªíÄæ¦ì¦WºÙ, valuesªº¸Ü«h¬O¦³´X­ÓÄæ¦ì«hµ¹´X­Ó°İ¸¹
-			String sql = "INSERT INTO cart "
-					+ "(cart_number, customer, amount, created_by, created_date, last_modified_by, last_modified_date) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-			// ³oÃä¸ò¬d¸ß¤£¤@¼Ëªº¬O »İ­n·s¼W¤U­±ªºPreparedStatement§@¬°¸òdb¤¬°Êªºª«¥ó¬d¸ß¬OStatement
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, cartInfo.getCart_number());// ²Ä¤@­Ó?­n´¡¤Jªº­È
-			pstmt.setString(2, cartInfo.getCustomer());// ²Ä¤G­Ó?­n´¡¤Jªº­È
-			pstmt.setInt(3, cartInfo.getAmount());// ²Ä¤T­Ó?­n´¡¤Jªº­È
-			pstmt.setString(4, cartInfo.getCreated_by());// ²Ä¥|­Ó?­n´¡¤Jªº­È
-			pstmt.setDate(5, cartInfo.getCreated_date());// ²Ä¤­­Ó?­n´¡¤Jªº­È
-			pstmt.setString(6, cartInfo.getLast_modified_by());// ²Ä¤»­Ó?­n´¡¤Jªº­È
-			pstmt.setDate(7, cartInfo.getLast_modified_date());// ²Ä¤C­Ó?­n´¡¤Jªº­È
-
-			// ¬d¸ßªº¬O¥ÎexecuteQuery ·s¼W¸ê®Æ¬OexecuteUpdate
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			stmt.close();
-			conn.close();
-		}
-	}
 }
