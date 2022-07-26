@@ -48,7 +48,7 @@
 	}
 	
 # 更新資料
-###### 單筆更新 http://localhost:8080/ShoppingCar/updateShoppingCar/update
+#### 單筆更新 http://localhost:8080/ShoppingCar/updateShoppingCar/update
 	{
 	    "inputKey" : "1",
 	    "amount" : 600,
@@ -59,7 +59,7 @@
 	}
 	
 # 刪除資料
-###### 單筆刪除 http://localhost:8080/ShoppingCar/deleteShoppingCar/delete
+#### 單筆刪除 http://localhost:8080/ShoppingCar/deleteShoppingCar/delete
 	{
 	    "inputKey" : "1",
 	    "cart_number" : "2"
