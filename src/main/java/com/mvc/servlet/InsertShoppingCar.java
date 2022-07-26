@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mvc.dao.Cart;
+import com.mvc.dao.CommodityPoolMain;
 import com.mvc.service.impl.ShoppingCarServiceImpl;
 
 @WebServlet("/InsertShoppingCar")
@@ -75,7 +76,22 @@ public class InsertShoppingCar extends HttpServlet {
 				array.add(parseObject);
 				// 查詢結束後轉成json回傳前端
 				response.getWriter().append(array.toString());
-			} else if (inputKey.equals("1")) {
+			} else if (inputKey.equals("2")) {
+
+			}
+			// 新增單筆commodityPoolMain 資料
+			else if (inputKey.equals("3")) {
+				CommodityPoolMain cPI = new CommodityPoolMain();
+				cPI.setCart_number(parseObject.get("cart_number").toString());
+				cPI.setCommodity_pool_id(parseObject.get("commodity_pool_id").toString());
+				cPI.setCommodity_pool_name(parseObject.get("commodity_pool_name").toString());
+				cPI.setCommodity_pool_type(parseObject.get("commodity_pool_type").toString());
+				cPI.setLog_id(parseObject.get("log_id").toString());
+				cPI.setStop_check(parseObject.get("stop_check").toString());
+				cPI.setStop_desc(parseObject.get("stop_desc").toString());
+				shoppingCarServiceImpl.insertCommodityPoolInfo(cPI);
+				array.add(parseObject);
+				response.getWriter().append(array.toString());
 
 			}
 		} catch (Exception e) {

@@ -1,54 +1,55 @@
-# ShoppingCar
+#ShoppingCar 購物車
 
-URL
+#URL 
+
 #取得全部資料
 	http://localhost:8080/ShoppingCar/ericaShoppingCar/index?inputKey=1
-	
+
 #取得指定資料
 	http://localhost:8080/ShoppingCar/ericaShoppingCar/index?cart_number=1&inputKey=
-	
+
 #新增單筆資料
 	單筆新增
 	http://localhost:8080/ShoppingCar/insertShoppingCar/insert
-		{
-		    "inputKey" : "1",
-		    "amount" : {{$randomInt}},
-		    "cart_number" : {{$randomInt}},
-		    "created_by" : "erica",
-		    "last_modified_by" : "erica",
-		    "customer" : "{{$guid}}"
-		
-		}
+	
+	{
+		"inputKey" : "1",
+		"amount" : {{$randomInt}},
+		"cart_number" : {{$randomInt}},
+		"created_by" : "erica",
+		"last_modified_by" : "erica",
+		"customer" : "{{$guid}}"
+	}
 		
 #新增全部資料
 	多筆新增
 	http://localhost:8080/ShoppingCar/insertShoppingCar/insert
 	
-	{  "inputKey" : "2",
+	{  
+		"inputKey" : "2",
     	"cart_list" : 
-    [
-        { 
-	        "amount" : {{$randomInt}},
-	        "cart_number" : {{$randomInt}},
-	        "created_by" : "erica",
-	        "last_modified_by" : "erica",
-	         "customer" : "{{$guid}}"
-        },
-        { 
-	        "amount" : 500,
-	        "cart_number" : {{$randomInt}},
-	        "created_by" : "erica",
-	        "last_modified_by" : "erica",
-	         "customer" : "{{$guid}}"
-        },
-        { 
-	        "amount" : 500,
-	       "cart_number" : {{$randomInt}},
-	        "created_by" : "erica",
-	        "last_modified_by" : "erica",
-	         "customer" : "{{$guid}}"
-        }
-    
+    	[
+	        { 
+		        "amount" : {{$randomInt}},
+		        "cart_number" : {{$randomInt}},
+		        "created_by" : "erica",
+		        "last_modified_by" : "erica",
+		         "customer" : "{{$guid}}"
+	        },
+	        { 
+		        "amount" : 500,
+		        "cart_number" : {{$randomInt}},
+		        "created_by" : "erica",
+		        "last_modified_by" : "erica",
+		         "customer" : "{{$guid}}"
+	        },
+	        { 
+		        "amount" : 500,
+		       "cart_number" : {{$randomInt}},
+		        "created_by" : "erica",
+		        "last_modified_by" : "erica",
+		         "customer" : "{{$guid}}"
+	        }
 	    ]
 	}
 	

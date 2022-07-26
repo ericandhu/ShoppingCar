@@ -3,6 +3,7 @@ package com.mvc.service.impl;
 import java.util.List;
 
 import com.mvc.dao.Cart;
+import com.mvc.dao.CommodityPoolMain;
 import com.mvc.service.repository.DeleteShoppingCarRepository;
 import com.mvc.service.repository.InsertShoppingCarRepository;
 import com.mvc.service.repository.ShoppingCarRepository;
@@ -88,6 +89,10 @@ public class ShoppingCarServiceImpl {
 	 */
 	public void deleteCartInfo(String cartNumber) throws Exception {
 		deleteShoppingCarRepository.deleteCartInfo(cartNumber);
+	}
+	
+	public void insertCommodityPoolInfo(CommodityPoolMain cPIo) throws Exception {
+		insertShoppingCarRepository.insertCommodityPoolInfo(cPIo);
 	}
 	
 }
