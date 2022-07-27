@@ -1,4 +1,5 @@
 # ShoppingCar 購物車
+###### Servlet + JDBC + MySQL
 
 # 取得資料
 * 取得Cart全部資料 http://localhost:8080/ShoppingCar/ericaShoppingCar/index?inputKey=1
