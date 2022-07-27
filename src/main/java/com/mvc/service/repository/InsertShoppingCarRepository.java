@@ -60,7 +60,8 @@ public class InsertShoppingCarRepository {
 			conn1 = jd.getConnection();
 			stmt1 = conn1.createStatement();
 			String sql1 = "INSERT INTO commodity_pool_main"
-					+ "(commodity_pool_id,cart_number,commodity_pool_name,commodity_pool_type,stop_check,stop_desc,log_id)";
+					+ "(commodity_pool_id,cart_number,commodity_pool_name,commodity_pool_type,stop_check,stop_desc,log_id)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmt = conn1.prepareStatement(sql1);
 			pstmt.setString(1, cPI.getCommodity_pool_id());// 第一個?要插入的值
 			pstmt.setString(2, cPI.getCart_number());// 第二個?要插入的值

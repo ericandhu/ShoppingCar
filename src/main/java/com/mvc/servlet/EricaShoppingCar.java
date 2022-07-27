@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mvc.dao.Cart;
+import com.mvc.dao.CommodityPoolMain;
 import com.mvc.service.impl.ShoppingCarServiceImpl;
 
 @WebServlet("/EricaShoppingCar")
@@ -58,7 +59,32 @@ public class EricaShoppingCar extends HttpServlet {
 				array.add(jsonObject);
 				response.getWriter().append(array.toString());
 			}
-			// 假如 inputKey為3多筆查詢
+			// 假如 inputKey為3全部查詢(table commoditypoolmain)
+			else if (inputKey.equals("3")) {
+				List<CommodityPoolMain> cPIList = shoppingCarServiceImpl.getCPI();
+				for (int i = 0; i < cPIList.size(); i++) {
+					JSONObject jsonObject1 = getJsonObject1(cPIList.get(i).getCart_number(),
+							cPIList.get(i).getCommodity_pool_id(), cPIList.get(i).getCommodity_pool_name(),
+							cPIList.get(i).getCommodity_pool_type(), cPIList.get(i).getLog_id(),
+							cPIList.get(i).getStop_check(), cPIList.get(i).getStop_desc());
+					array.add(jsonObject1);
+				}
+				// 查詢結束後轉成json回傳前端
+				response.getWriter().append(array.toString());
+			}
+			// 假如 inputKey為4指定單號查詢(table commoditypoolmain)
+			else if (inputKey.equals("4")) {
+				//getParameter使用URL上參數
+				String cart_Number = request.getParameter("cart_number");
+				CommodityPoolMain cPM = shoppingCarServiceImpl.getCPM_By_Number(cart_Number);
+				JSONObject jsonObject1 = getJsonObject1(cPM.getCart_number(),
+						cPM.getCommodity_pool_id(), cPM.getCommodity_pool_name(),
+						cPM.getCommodity_pool_type(), cPM.getLog_id(),
+						cPM.getStop_check(), cPM.getStop_desc());
+				array.add(jsonObject1);
+				response.getWriter().append(array.toString());
+			}
+
 //			else if (inputKey.equals("3")) {
 //				List<String> cart_list = new ArrayList();
 //				// JSON物件進入時為陣列狀需要轉譯成陣列狀
@@ -103,6 +129,19 @@ public class EricaShoppingCar extends HttpServlet {
 		jsonObject.put("最後修改者", last_modified_by);
 		jsonObject.put("最後修改日期", last_modified_date);
 		return jsonObject;
+	}
+
+	public JSONObject getJsonObject1(String cart_number, String commodity_pool_id, String commodity_pool_name,
+			String commodity_pool_type, String log_id, String stop_check, String stop_desc) {
+		JSONObject jsonObject1 = new JSONObject();
+		jsonObject1.put("ID", commodity_pool_id);
+		jsonObject1.put("購物車編號", cart_number);
+		jsonObject1.put("商品池名稱", commodity_pool_name);
+		jsonObject1.put("商品池類別", commodity_pool_type);
+		jsonObject1.put("log序號", log_id);
+		jsonObject1.put("是否停用", stop_check);
+		jsonObject1.put("停用原因", stop_desc);
+		return jsonObject1;
 	}
 
 }

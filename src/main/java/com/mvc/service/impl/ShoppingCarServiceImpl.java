@@ -10,13 +10,13 @@ import com.mvc.service.repository.ShoppingCarRepository;
 import com.mvc.service.repository.UpdateShoppingCarRepository;
 
 public class ShoppingCarServiceImpl {
-	
+
 	ShoppingCarRepository ShoppingCarRepository = new ShoppingCarRepository();
-	
+
 	InsertShoppingCarRepository insertShoppingCarRepository = new InsertShoppingCarRepository();
-	
+
 	UpdateShoppingCarRepository updateShoppingCarRepository = new UpdateShoppingCarRepository();
-	
+
 	DeleteShoppingCarRepository deleteShoppingCarRepository = new DeleteShoppingCarRepository();
 
 	/**
@@ -41,6 +41,16 @@ public class ShoppingCarServiceImpl {
 	}
 
 	/**
+	 * 取的所有資料(commodity_pool_main)
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<CommodityPoolMain> getCPI() throws Exception {
+		return ShoppingCarRepository.getCPI();
+	}
+
+	/**
 	 * 取得指定資料_多筆
 	 * 
 	 * @param cart_number_list
@@ -52,6 +62,17 @@ public class ShoppingCarServiceImpl {
 	}
 
 	/**
+	 * 取得指定單筆資料(commodity_pool_main)
+	 * 
+	 * @param cpm_number
+	 * @return
+	 * @throws Exception
+	 */
+	public CommodityPoolMain getCPM_By_Number(String cpm_number) throws Exception {
+		return ShoppingCarRepository.getCPM_By_Number(cpm_number);
+	}
+
+	/**
 	 * 新增一筆資料
 	 * 
 	 * @param cartInfo
@@ -60,7 +81,7 @@ public class ShoppingCarServiceImpl {
 	public void insertCartInfo(Cart cartInfo) throws Exception {
 		insertShoppingCarRepository.insertCartInfo(cartInfo);
 	}
-	
+
 	/**
 	 * 新增多筆資料
 	 * 
@@ -70,7 +91,7 @@ public class ShoppingCarServiceImpl {
 	public void insertCartInfoList(List<Cart> cartInfoList) throws Exception {
 		insertShoppingCarRepository.insertCartInfoList(cartInfoList);
 	}
-	
+
 	/**
 	 * 更新一筆資料
 	 * 
@@ -80,7 +101,7 @@ public class ShoppingCarServiceImpl {
 	public void updateateCartInfo(Cart cartInfo) throws Exception {
 		updateShoppingCarRepository.updateCartInfo(cartInfo);
 	}
-	
+
 	/**
 	 * 刪除一筆資料
 	 * 
@@ -90,9 +111,15 @@ public class ShoppingCarServiceImpl {
 	public void deleteCartInfo(String cartNumber) throws Exception {
 		deleteShoppingCarRepository.deleteCartInfo(cartNumber);
 	}
-	
+
+	/**新增CommodityPoolInfo
+	 * 
+	 * 
+	 * @param cPIo
+	 * @throws Exception
+	 */
 	public void insertCommodityPoolInfo(CommodityPoolMain cPIo) throws Exception {
 		insertShoppingCarRepository.insertCommodityPoolInfo(cPIo);
 	}
-	
+
 }
