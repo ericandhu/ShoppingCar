@@ -74,7 +74,21 @@
 	    "last_modified_by" : "erica123",
 	    "customer" : "{{$guid}}"
 	}
-	
+
+# 更新CommodityPoolMain資料
+#### 單筆更新 http://localhost:8080/ShoppingCar/updateShoppingCar/update?inputKey=3
+	{
+    "inputKey" : "3",
+    "cart_number" : "650",
+    "commodity_pool_id" :"123" ,
+    "commodity_pool_name" : "erica",
+    "commodity_pool_type" : "AA",
+    "stop_check" : "Y",
+    "stop_desc" : "Y",
+    "log_id" : "234"
+
+    }
+
 # 刪除Cart資料
 #### 單筆刪除 http://localhost:8080/ShoppingCar/deleteShoppingCar/delete
 	{
