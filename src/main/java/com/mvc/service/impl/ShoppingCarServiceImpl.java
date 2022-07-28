@@ -98,7 +98,7 @@ public class ShoppingCarServiceImpl {
 	 * @param cartInfo
 	 * @throws Exception
 	 */
-	public void updateateCartInfo(Cart cartInfo) throws Exception {
+	public void updateCartInfo(Cart cartInfo) throws Exception {
 		updateShoppingCarRepository.updateCartInfo(cartInfo);
 	}
 
@@ -121,5 +121,11 @@ public class ShoppingCarServiceImpl {
 	public void insertCommodityPoolInfo(CommodityPoolMain cPIo) throws Exception {
 		insertShoppingCarRepository.insertCommodityPoolInfo(cPIo);
 	}
+
+	public void updateCommodityPoolMain(CommodityPoolMain cPM)throws Exception {
+		updateShoppingCarRepository.updateCommodityPoolMain(cPM);		
+	}
+
+	
 
 }
