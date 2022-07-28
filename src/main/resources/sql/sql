@@ -37,3 +37,10 @@ create table shoppingcar.commodity_pool_detail (
   `log_id` varchar(10) not null comment 'log序號',
   primary key (`commodity_id`)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_0900_ai_ci comment='商品池維護明細檔';
+
+## 測試資料
+
+INSERT INTO shoppingcar.cart(cart_number,customer,amount,created_by,created_date,last_modified_by,last_modified_date) VALUES ('117','41e60167-c4fc-4b77-befb-ad96ec3c3b4b',429,'erica','2022/7/28','erica','2022/7/28');
+INSERT INTO shoppingcar.cart(cart_number,customer,amount,created_by,created_date,last_modified_by,last_modified_date) VALUES ('968','c1358a4a-1a9b-44c0-b06d-941a32d51e88',274,'erica','2022/7/28','erica','2022/7/28');
+INSERT INTO shoppingcar.commodity_pool_main(commodity_pool_id,cart_number,commodity_pool_name,commodity_pool_type,stop_check,stop_desc,log_id) VALUES ('44','579','erica','AA','Y','Y','486');
+INSERT INTO shoppingcar.commodity_pool_main(commodity_pool_id,cart_number,commodity_pool_name,commodity_pool_type,stop_check,stop_desc,log_id) VALUES ('625','336','erica','AA','Y','Y','880');
