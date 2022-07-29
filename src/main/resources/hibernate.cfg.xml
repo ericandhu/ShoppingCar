@@ -22,6 +22,7 @@
 
 		<!-- 物件與資料庫表格映射文件 -->
 		<mapping resource="com/mvc/dao/shoppingCar/Cart.hbm.xml" />
+		<mapping resource="com/mvc/dao/shoppingCar/CommodityPoolMain.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>

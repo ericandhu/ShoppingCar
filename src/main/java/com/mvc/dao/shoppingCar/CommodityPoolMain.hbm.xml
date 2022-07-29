@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE hibernate-mapping 
+ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mvc.dao">
+	<class name="CommodityPoolMain" table="commodity_pool_main">
+		<id name="cart_number" column="cart_number">
+<!-- 			<generator class="native" /> -->
+		</id>
+		<property name="commodity_pool_id" column="commodity_pool_id" />
+		<property name="commodity_pool_name" column="commodity_pool_name" />
+		<property name="commodity_pool_type" column="commodity_pool_type" />
+		<property name="stop_check" column="stop_check" />
+		<property name="stop_desc" column="stop_desc" />
+		<property name="log_id" column="log_id" />
+	</class>
+</hibernate-mapping>
