@@ -1,13 +1,13 @@
-package com.mvc.service.impl;
+package com.mvc.service.impl.JDBC;
 
 import java.util.List;
 
 import com.mvc.dao.Cart;
 import com.mvc.dao.CommodityPoolMain;
-import com.mvc.service.repository.DeleteShoppingCarRepository;
-import com.mvc.service.repository.InsertShoppingCarRepository;
-import com.mvc.service.repository.ShoppingCarRepository;
-import com.mvc.service.repository.UpdateShoppingCarRepository;
+import com.mvc.service.repository.JDBC.DeleteShoppingCarRepository;
+import com.mvc.service.repository.JDBC.InsertShoppingCarRepository;
+import com.mvc.service.repository.JDBC.ShoppingCarRepository;
+import com.mvc.service.repository.JDBC.UpdateShoppingCarRepository;
 
 public class ShoppingCarServiceImpl {
 

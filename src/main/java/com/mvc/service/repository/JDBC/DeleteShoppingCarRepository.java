@@ -1,4 +1,4 @@
-package com.mvc.service.repository;
+package com.mvc.service.repository.JDBC;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

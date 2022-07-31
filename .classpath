@@ -24,6 +24,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -32,13 +33,17 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/程式相關/資源檔案/lib/jasper.jar"/>
-	<classpathentry kind="lib" path="D:/程式相關/資源檔案/lib/javax.servlet-api-4.0.1.jar"/>
-	<classpathentry kind="lib" path="D:/程式相關/資源檔案/lib/json-lib-2.4-jdk13.jar"/>
-	<classpathentry kind="lib" path="D:/程式相關/資源檔案/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/jsp-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/liu/Downloads/mysql-connector-java-8.0.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/liu/Downloads/fastjson-1.2.78.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/fastjson-1.2.78.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/javassist-3.12.1.GA.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="D:/ShoppingCar/WebContent/WEB-INF/lib/mysql-connector-java-8.0.29.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

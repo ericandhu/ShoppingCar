@@ -1,4 +1,4 @@
-package com.mvc.service.repository;
+package com.mvc.service.repository.JDBC;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,6 +19,12 @@ public class ShoppingCarRepository {
 
 	static Jdbc_mysql_config jd = new Jdbc_mysql_config();
 
+	/**
+	 * 取得全部Cart資料
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Cart> getCart() throws Exception {
 		Statement stmt = null;
 		Connection conn = null;
@@ -53,6 +59,12 @@ public class ShoppingCarRepository {
 		return cartList;
 	}
 
+	/**
+	 * 取得全部CommodityPoolMain資料
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public List<CommodityPoolMain> getCPI() throws Exception {
 		Statement stmt1 = null;
 		Connection conn1 = null;
@@ -88,6 +100,13 @@ public class ShoppingCarRepository {
 		return cPIList;
 	}
 
+	/**
+	 * 取得Cart 指定資料
+	 * 
+	 * @param cart_number
+	 * @return
+	 * @throws Exception
+	 */
 	public Cart getCart_By_Number(String cart_number) throws Exception {
 		// 準備執行SQL的物件
 		Statement stmt = null;
@@ -122,6 +141,13 @@ public class ShoppingCarRepository {
 		return cart;
 	}
 
+	/**
+	 * 取得指定多筆Cart資料
+	 * 
+	 * @param cart_number_list
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Cart> getCart_By_Number_List(List cart_number_list) throws Exception {
 		Statement stmt = null;
 		Connection conn = null;
@@ -155,6 +181,13 @@ public class ShoppingCarRepository {
 		return cartList;
 	}
 
+	/**
+	 * 取得CommodityPoolMain指定資料
+	 * 
+	 * @param cpm_number
+	 * @return
+	 * @throws Exception
+	 */
 	public CommodityPoolMain getCPM_By_Number(String cpm_number) throws Exception {
 		Statement stmt2 = null;
 		Connection conn2 = null;

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mvc.service.impl.ShoppingCarServiceImpl;
+import com.mvc.service.impl.JDBC.ShoppingCarServiceImpl;
 
 @WebServlet("/DeleteCartInfo")
 public class DeleteShoppingCar extends HttpServlet {

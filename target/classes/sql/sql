@@ -1,29 +1,46 @@
+# create database
 create database shoppingCar;
 
-CREATE TABLE `cart` (
-  `cart_number` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '購物車編號',
-  `customer` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客戶名稱',
-  `amount` int NOT NULL COMMENT '金額',
-  `created_by` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_date` datetime NOT NULL,
-  `last_modified_by` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_modified_date` datetime NOT NULL,
-  PRIMARY KEY (`cart_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='購物車資料';
+# drop
+drop table shoppingcar.cart;
+drop table shoppingcar.commodity_pool_main;
+drop table shoppingcar.commodity_pool_detail;
 
-CREATE TABLE `commodity_pool_main` (
-  `COMMODITY_POOL_ID` varchar(20) NOT NULL,
-  `COMMODITY_POOL_NAME` varchar(50) NOT NULL COMMENT '商品池名稱',
-  `COMMODITY_POOL_TYPE` varchar(2) NOT NULL COMMENT '商品池類別',
-  `STOP_CHECK` varchar(1) NOT NULL COMMENT '是否停用',
-  `STOP_DESC` varchar(100) DEFAULT NULL COMMENT '停用原因',
-  `LOG_ID` varchar(10) NOT NULL COMMENT 'LOG序號',
-  PRIMARY KEY (`COMMODITY_POOL_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品池維護主檔';
+# Cart
+create table shoppingcar.cart (
+  `cart_number` varchar(60) collate utf8mb4_unicode_ci not null comment '購物車編號',
+  `customer` varchar(60) collate utf8mb4_unicode_ci not null comment '客戶名稱',
+  `amount` int not null comment '金額',
+  `created_by` varchar(60) collate utf8mb4_unicode_ci not null,
+  `created_date` datetime not null,
+  `last_modified_by` varchar(60) collate utf8mb4_unicode_ci not null,
+  `last_modified_date` datetime not null,
+  primary key (`cart_number`)
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci comment='購物車資料';
 
-CREATE TABLE `commodity_pool_detail` (
-  `COMMODITY_POOL_ID` varchar(20) NOT NULL COMMENT '商品池代號',
-  `COMMODITY_ID` varchar(20) NOT NULL,
-  `LOG_ID` varchar(10) NOT NULL COMMENT 'LOG序號',
-  PRIMARY KEY (`COMMODITY_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品池維護明細檔';
+# commodity_pool_main
+create table shoppingcar.commodity_pool_main (
+  `commodity_pool_id` varchar(20) not null,
+   `cart_number` varchar(60) not null comment '購物車編號',
+  `commodity_pool_name` varchar(50) not null comment '商品池名稱',
+  `commodity_pool_type` varchar(2) not null comment '商品池類別',
+  `stop_check` varchar(1) not null comment '是否停用',
+  `stop_desc` varchar(100) default null comment '停用原因',
+  `log_id` varchar(10) not null comment 'log序號',
+  primary key (`commodity_pool_id`)
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_0900_ai_ci comment='商品池維護主檔';
+
+# commodity_pool_detail
+create table shoppingcar.commodity_pool_detail (
+  `commodity_pool_id` varchar(20) not null comment '商品池代號',
+  `commodity_id` varchar(20) not null,
+  `log_id` varchar(10) not null comment 'log序號',
+  primary key (`commodity_id`)
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_0900_ai_ci comment='商品池維護明細檔';
+
+## 測試資料
+
+INSERT INTO shoppingcar.cart(cart_number,customer,amount,created_by,created_date,last_modified_by,last_modified_date) VALUES ('117','41e60167-c4fc-4b77-befb-ad96ec3c3b4b',429,'erica','2022/7/28','erica','2022/7/28');
+INSERT INTO shoppingcar.cart(cart_number,customer,amount,created_by,created_date,last_modified_by,last_modified_date) VALUES ('968','c1358a4a-1a9b-44c0-b06d-941a32d51e88',274,'erica','2022/7/28','erica','2022/7/28');
+INSERT INTO shoppingcar.commodity_pool_main(commodity_pool_id,cart_number,commodity_pool_name,commodity_pool_type,stop_check,stop_desc,log_id) VALUES ('44','579','erica','AA','Y','Y','486');
+INSERT INTO shoppingcar.commodity_pool_main(commodity_pool_id,cart_number,commodity_pool_name,commodity_pool_type,stop_check,stop_desc,log_id) VALUES ('625','336','erica','AA','Y','Y','880');

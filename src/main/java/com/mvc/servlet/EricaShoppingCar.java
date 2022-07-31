@@ -14,12 +14,23 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mvc.dao.Cart;
 import com.mvc.dao.CommodityPoolMain;
-import com.mvc.service.impl.ShoppingCarServiceImpl;
+import com.mvc.service.impl.Hibernate.ShoppingCarServiceImpl_Hibernate;
+import com.mvc.service.impl.JDBC.ShoppingCarServiceImpl;
 
 @WebServlet("/EricaShoppingCar")
 public class EricaShoppingCar extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Hibernate使用的interface
+	 */
+	ShoppingCarServiceImpl_Hibernate hibernateImpl = new ShoppingCarServiceImpl_Hibernate();
+
+	/**
+	 * JDBC使用的interface
+	 */
+	ShoppingCarServiceImpl shoppingCarServiceImpl = new ShoppingCarServiceImpl();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -30,8 +41,6 @@ public class EricaShoppingCar extends HttpServlet {
 			if (inputKey == null || inputKey.equals("")) {
 				inputKey = "1";
 			}
-
-			ShoppingCarServiceImpl shoppingCarServiceImpl = new ShoppingCarServiceImpl();
 
 			// 接受底下回傳資料的array
 			JSONArray array = new JSONArray();
@@ -74,42 +83,39 @@ public class EricaShoppingCar extends HttpServlet {
 			}
 			// 假如 inputKey為4指定單號查詢(table commoditypoolmain)
 			else if (inputKey.equals("4")) {
-				//getParameter使用URL上參數
+				// getParameter使用URL上參數
 				String cart_Number = request.getParameter("cart_number");
 				CommodityPoolMain cPM = shoppingCarServiceImpl.getCPM_By_Number(cart_Number);
-				JSONObject jsonObject1 = getJsonObject1(cPM.getCart_number(),
-						cPM.getCommodity_pool_id(), cPM.getCommodity_pool_name(),
-						cPM.getCommodity_pool_type(), cPM.getLog_id(),
+				JSONObject jsonObject1 = getJsonObject1(cPM.getCart_number(), cPM.getCommodity_pool_id(),
+						cPM.getCommodity_pool_name(), cPM.getCommodity_pool_type(), cPM.getLog_id(),
 						cPM.getStop_check(), cPM.getStop_desc());
 				array.add(jsonObject1);
 				response.getWriter().append(array.toString());
 			}
-
-//			else if (inputKey.equals("3")) {
-//				List<String> cart_list = new ArrayList();
-//				// JSON物件進入時為陣列狀需要轉譯成陣列狀
-//				JSONArray jsonArr = parseObject.getJSONArray("cart_number_list");
-//				for (int i = 0; i < jsonArr.size(); i++) {
-//					// 取array狀中行數i
-//					JSONObject jsonObject = jsonArr.getJSONObject(i);
-//					// 取出當行中，key的值轉成string
-//					String cart_number = jsonObject.get("cart_number").toString();
-//					// 建立一個list來放得到的值
-//					cart_list.add(cart_number);
-//				}
-//				List<Cart> cartList = shoppingCarServiceImpl.getCart_By_Number_List(cart_list);
-//				// for迴圈用來把資料們再轉成JSON檔
-//				for (int i = 0; i < cartList.size(); i++) {
-//					JSONObject jsonObject = getJsonObject(cartList.get(i).getCart_number(),
-//							cartList.get(i).getCustomer(), cartList.get(i).getAmount(), cartList.get(i).getCreated_by(),
-//							cartList.get(i).getCreated_date(), cartList.get(i).getLast_modified_by(),
-//							cartList.get(i).getLast_modified_date());
-//
-//					array.add(jsonObject);
-//				}
-//				response.getWriter().append(array.toString());
-
-//			}
+			// inputKey為5 Hibernate 全部查詢
+			else if (inputKey.equals("5")) {
+				List<Cart> cartList = hibernateImpl.getCart();
+				for (int i = 0; i < cartList.size(); i++) {
+					JSONObject jsonObject = getJsonObject(cartList.get(i).getCart_number(),
+							cartList.get(i).getCustomer(), cartList.get(i).getAmount(), cartList.get(i).getCreated_by(),
+							cartList.get(i).getCreated_date(), cartList.get(i).getLast_modified_by(),
+							cartList.get(i).getLast_modified_date());
+					array.add(jsonObject);
+				}
+				// 查詢結束後轉成json回傳前端
+				response.getWriter().append(array.toString());
+			}
+			// inputKey為6 Hibernate 指定單筆查詢
+			else if (inputKey.equals("6")) {
+				String cart_number = request.getParameter("cart_number");
+				Cart cart = hibernateImpl.getCartByCartNumber(cart_number);
+				JSONObject jsonObject = getJsonObject(cart.getCart_number(), cart.getCustomer(), cart.getAmount(),
+						cart.getCreated_by(), cart.getCreated_date(), cart.getLast_modified_by(),
+						cart.getLast_modified_date());
+				array.add(jsonObject);
+				response.getWriter().append(array.toString());
+				}
+							
 
 		} catch (
 
@@ -118,6 +124,18 @@ public class EricaShoppingCar extends HttpServlet {
 		}
 	}
 
+	/**
+	 * 轉換table (Cart)資料 -> JSON 回前端
+	 * 
+	 * @param cart_number
+	 * @param customer
+	 * @param amount
+	 * @param created_by
+	 * @param created_date
+	 * @param last_modified_by
+	 * @param last_modified_date
+	 * @return
+	 */
 	public JSONObject getJsonObject(String cart_number, String customer, int amount, String created_by,
 			Date created_date, String last_modified_by, Date last_modified_date) {
 		JSONObject jsonObject = new JSONObject();
@@ -131,6 +149,18 @@ public class EricaShoppingCar extends HttpServlet {
 		return jsonObject;
 	}
 
+	/**
+	 * 轉換table (CommodityPoolMain)資料 -> JSON 回前端
+	 * 
+	 * @param cart_number
+	 * @param commodity_pool_id
+	 * @param commodity_pool_name
+	 * @param commodity_pool_type
+	 * @param log_id
+	 * @param stop_check
+	 * @param stop_desc
+	 * @return
+	 */
 	public JSONObject getJsonObject1(String cart_number, String commodity_pool_id, String commodity_pool_name,
 			String commodity_pool_type, String log_id, String stop_check, String stop_desc) {
 		JSONObject jsonObject1 = new JSONObject();

@@ -1,14 +1,25 @@
 # ShoppingCar 購物車
-###### Servlet + JDBC + MySQL
+
+# Side project branch
+###### JDBC分支 (Servlet + JDBC + MySQL)
+* git checkout main
+
+###### Hibernate分支 (Servlet + Hibernate + MySQL)
+* git checkout hibernate_branch
 
 # 取得資料
+###### JDBC
 * 取得Cart全部資料 http://localhost:8080/ShoppingCar/ericaShoppingCar/index?inputKey=1
 * 取得Cart指定資料 http://localhost:8080/ShoppingCar/ericaShoppingCar/index?cart_number=1&inputKey=2
 * 取得CommodityPoolMain全部資料 http://localhost:8080/ShoppingCar/ericaShoppingCar/index?inputKey=3
 * 取得CommodityPoolMain指定資料 http://localhost:8080/ShoppingCar/ericaShoppingCar/index?inputKey=4&cart_number=650
 
+###### Hibernate
+* 取得Cart全部資料 http://localhost:8080/ShoppingCar/ericaShoppingCar/index?inputKey=5
+* 取得Cart指定資料 http://localhost:8080/ShoppingCar/ericaShoppingCar/index?cart_number=117&inputKey=6
+
 # 新增Cart單筆資料
-#### 單筆新增 http://localhost:8080/ShoppingCar/insertShoppingCar/insert
+###### 單筆新增 http://localhost:8080/ShoppingCar/insertShoppingCar/insert
 
 	{
 		"inputKey" : "1",
@@ -20,7 +31,7 @@
 	}
 	
 # 新增CommodityPoolMain單筆資料
-#### 單筆新增	 http://localhost:8080/ShoppingCar/insertShoppingCar/insert
+###### 單筆新增	 http://localhost:8080/ShoppingCar/insertShoppingCar/insert
 
 	{
 	    "inputKey" : "3",
@@ -34,7 +45,7 @@
 	}
 		
 # 新增Cart全部資料
-#### 多筆新增 http://localhost:8080/ShoppingCar/insertShoppingCar/insert
+###### 多筆新增 http://localhost:8080/ShoppingCar/insertShoppingCar/insert
 	
 	{  
 		"inputKey" : "2",
@@ -65,7 +76,7 @@
 	}
 	
 # 更新Cart資料
-#### 單筆更新 http://localhost:8080/ShoppingCar/updateShoppingCar/update
+###### 單筆更新 http://localhost:8080/ShoppingCar/updateShoppingCar/update
 	{
 	    "inputKey" : "1",
 	    "amount" : 600,
@@ -76,7 +87,7 @@
 	}
 
 # 更新CommodityPoolMain資料
-#### 單筆更新 http://localhost:8080/ShoppingCar/updateShoppingCar/update?inputKey=3
+###### 單筆更新 http://localhost:8080/ShoppingCar/updateShoppingCar/update?inputKey=3
 	{
     "inputKey" : "3",
     "cart_number" : "650",
@@ -90,7 +101,7 @@
     }
 
 # 刪除Cart資料
-#### 單筆刪除 http://localhost:8080/ShoppingCar/deleteShoppingCar/delete
+###### 單筆刪除 http://localhost:8080/ShoppingCar/deleteShoppingCar/delete
 	{
 	    "inputKey" : "1",
 	    "cart_number" : "2"

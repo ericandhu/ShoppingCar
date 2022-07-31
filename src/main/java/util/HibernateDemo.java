@@ -1,12 +1,9 @@
 package util;
 
-import com.mvc.dao.Cart;
-import com.mvc.dao.CommodityPoolMain;
-
-import java.util.Date;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import com.mvc.dao.CommodityPoolMain;
 
 public class HibernateDemo {
 	public static void main(String[] args) {
