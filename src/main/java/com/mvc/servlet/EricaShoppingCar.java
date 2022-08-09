@@ -36,7 +36,7 @@ public class EricaShoppingCar extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String inputKey = request.getParameter("inputKey");
-			response.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("MS932");
 
 			if (inputKey == null || inputKey.equals("")) {
 				inputKey = "1";
